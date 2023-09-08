@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A.P.E. Utility</title>
+    <style>
+      .section {
+        margin-bottom: 20px;
+      }
+      /* Add this CSS to hide the jsonView element initially */
+      #jsonView {
+        display: none;
+      }
+    </style>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+
+  </head>
+  <body class="bg-black text-white">
+    <h1 class="mb-3 mx-3">Additional Page Editor</h1>
+    <div class="row align-items-center" style="width: 50%;">
+        <div class="col-4 mx-3">
+            <span class="badge rounded-pill text-bg-danger mb-1">Please Provide your Existing SMUI config.</span>
+            <input class="form-control mb-3" type="file" id="jsonFileInput"/>
+            <input  class="form-control" type="text" id="sectionNumber" placeholder="Page Number"/>
+        </div>
+        <div class="col-2 mx-3">
+            <br class="mb-1">
+            <button class="form-control btn btn-outline-success mb-3" onclick="addSection()">Add Page</button>
+            <button id="downloadButton" class="form-control btn btn-outline-secondary" download="generated.json" href="#" onclick="downloadJSON()">Download</button>
+        </div>
+        <div class="col-2 mx-3">
+            <br class="mb-4">
+            <a type="button" href="/about.html" class="form-control mb-3 btn btn-outline-info">About</a>
+            <a type="button" href="/faq.html" class="form-control mb-3 btn btn-outline-info">FAQ</a>
+        </div>
+    </div>
+    <div class="position-fixed top-0 end-0 text-center p-3 my-3 rounded me-2" style="width: 60%; z-index: 11">
+        <div id="toast-container" class="toast-container"></div>
+    </div>      
+    <div class="hidden" id="jsonView"></div>
+    <div id="sectionEditor">
+      <!-- Fields for each key (0 to 14) -->
+      <div class="keys p-3">
+        
+        <!-- Key 0 -->
+
+
+        <div class="form-group align-items-center row border border-primary p3 mb-4">
+          <div class="col">
+          <h4 class="text-center col-md-10">Key 0</h4>
+          <div class="input-group mb-3">
+            <div class="col-md-10">
+              <input
+                type="text"
+                id="key0_command"
+                class="form-control placeholder-glow border border-secondary"
+                placeholder="Command"
+              />
+            </div>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="col-md-10">
+              <input
+                type="text"
+                id="key0_icon"
+                class="form-control placeholder-glow border border-secondary"
+                placeholder="Icon"
+              />
+            </div>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="col-md-10">
+              <input
+                type="text"
+                id="key0_text"
+                class="form-control placeholder-glow border border-secondary"
+                placeholder="Text"
+              />
+            </div>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="col-md-10">
+              <select id="key0_textVerticalAlign" class="form-control placeholder-glow border border-secondary">
+                <option value="middle">Text Alignment : Middle</option>
+                <option value="top">Text Alignment : Top</option>
+                <option value="bottom">Text Alignment : Bottom</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="col-md-10">
+              <input
+                type="text"
+                id="key0_switchPage"
+                class="form-control placeholder-glow border border-secondary"
+                placeholder="Switch Page"
+              />
+            </div>
+          </div>
+        </div>
+        
+        
+        <!-- Key 1 -->
+        <div class="col">
+        <h4 class="text-center col-md-10">Key 1</h4>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key1_command"
+              placeholder="Command"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key1_icon"
+              placeholder="Icon"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key1_text"
+              placeholder="Text"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <select id="key1_textVerticalAlign" class="form-control placeholder-glow border border-secondary">
+              <option value="middle">Text Alignment : Middle</option>
+              <option value="top">Text Alignment : Top</option>
+              <option value="bottom">Text Alignment : Bottom</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key1_switchPage"
+              placeholder="Switch Page"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        </div>
+        
+        <!-- Key 2 -->
+        <div class="col">
+        <h4 class="text-center col-md-10">Key 2</h4>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key2_command"
+              placeholder="Command"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key2_icon"
+              placeholder="Icon"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key2_text"
+              placeholder="Text"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <select id="key2_textVerticalAlign" class="form-control placeholder-glow border border-secondary">
+              <option value="middle">Text Alignment : Middle</option>
+              <option value="top">Text Alignment : Top</option>
+              <option value="bottom">Text Alignment : Bottom</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key2_switchPage"
+              placeholder="Switch Page"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        </div>
+        
+        <!-- Key 3 -->
+        <div class="col">
+        <h4 class="text-center col-md-10">Key 3</h4>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key3_command"
+              placeholder="Command"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key3_icon"
+              placeholder="Icon"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key3_text"
+              placeholder="Text"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <select id="key3_textVerticalAlign" class="form-control placeholder-glow border border-secondary">
+              <option value="middle">Text Alignment : Middle</option>
+              <option value="top">Text Alignment : Top</option>
+              <option value="bottom">Text Alignment : Bottom</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key3_switchPage"
+              placeholder="Switch Page"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        </div>
+        
+        <!-- Key 4 -->
+        <div class="col">
+        <h4 class="text-center col-md-10">Key 4</h4>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key4_command"
+              placeholder="Command"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key4_icon"
+              placeholder="Icon"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key4_text"
+              placeholder="Text"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <select id="key4_textVerticalAlign" class="form-control placeholder-glow border border-secondary">
+              <option value="middle">Text Alignment : Middle</option>
+              <option value="top">Text Alignment : Top</option>
+              <option value="bottom">Text Alignment : Bottom</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key4_switchPage"
+              placeholder="Switch Page"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        </div>
+        </div>
+        
+        
+        <!-- Key 5 -->
+        <div class="form-group align-items-center row border border-primary p3 mb-4">
+        <div class="col">
+          <h4 class="text-center col-md-10">Key 5</h4>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key5_command"
+              placeholder="Command"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key5_icon"
+              placeholder="Icon"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key5_text"
+              placeholder="Text"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <select id="key5_textVerticalAlign" class="form-control placeholder-glow border border-secondary">
+              <option value="middle">Text Alignment : Middle</option>
+              <option value="top">Text Alignment : Top</option>
+              <option value="bottom">Text Alignment : Bottom</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key5_switchPage"
+              placeholder="Switch Page"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        </div>
+        
+        <!-- Key 6 -->
+        <div class="col">
+        <h4 class="text-center col-md-10">Key 6</h4>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key6_command"
+              placeholder="Command"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key6_icon"
+              placeholder="Icon"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key6_text"
+              placeholder="Text"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <select id="key6_textVerticalAlign" class="form-control placeholder-glow border border-secondary">
+              <option value="middle">Text Alignment : Middle</option>
+              <option value="top">Text Alignment : Top</option>
+              <option value="bottom">Text Alignment : Bottom</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key6_switchPage"
+              placeholder="Switch Page"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        </div>
+        
+        <!-- Key 7 -->
+        <div class="col">
+        <h4 class="text-center col-md-10">Key 7</h4>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key7_command"
+              placeholder="Command"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key7_icon"
+              placeholder="Icon"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key7_text"
+              placeholder="Text"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <select id="key7_textVerticalAlign" class="form-control placeholder-glow border border-secondary">
+              <option value="middle">Text Alignment : Middle</option>
+              <option value="top">Text Alignment : Top</option>
+              <option value="bottom">Text Alignment : Bottom</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key7_switchPage"
+              placeholder="Switch Page"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        </div>
+        
+        <!-- Key 8 -->
+        <div class="col">
+        <h4 class="text-center col-md-10">Key 8</h4>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key8_command"
+              placeholder="Command"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key8_icon"
+              placeholder="Icon"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key8_text"
+              placeholder="Text"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <select id="key8_textVerticalAlign" class="form-control placeholder-glow border border-secondary">
+              <option value="middle">Text Alignment : Middle</option>
+              <option value="top">Text Alignment : Top</option>
+              <option value="bottom">Text Alignment : Bottom</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key8_switchPage"
+              placeholder="Switch Page"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        </div>
+
+        
+        <!-- Key 9 -->
+        <div class="col">
+        <h4 class="text-center col-md-10">Key 9</h4>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key9_command"
+              placeholder="Command"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key9_icon"
+              placeholder="Icon"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key9_text"
+              placeholder="Text"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <select id="key9_textVerticalAlign" class="form-control placeholder-glow border border-secondary">
+              <option value="middle">Text Alignment : Middle</option>
+              <option value="top">Text Alignment : Top</option>
+              <option value="bottom">Text Alignment : Bottom</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key9_switchPage"
+              placeholder="Switch Page"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        </div>
+        </div>
+        
+        <!-- Key 10 -->
+        <div class="form-group align-items-center row border border-primary p3 mb-4">
+        <div class="col">
+          <h4 class="text-center col-md-10">Key 10</h4>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key10_command"
+              placeholder="Command"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key10_icon"
+              placeholder="Icon"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key10_text"
+              placeholder="Text"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <select id="key10_textVerticalAlign" class="form-control placeholder-glow border border-secondary">
+              <option value="middle">Text Alignment : Middle</option>
+              <option value="top">Text Alignment : Top</option>
+              <option value="bottom">Text Alignment : Bottom</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key10_switchPage"
+              placeholder="Switch Page"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        </div>
+        
+        <!-- Key 11 -->
+        <div class="col">
+        <h4 class="text-center col-md-10">Key 11</h4>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key11_command"
+              placeholder="Command"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key11_icon"
+              placeholder="Icon"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key11_text"
+              placeholder="Text"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <select id="key11_textVerticalAlign" class="form-control placeholder-glow border border-secondary">
+              <option value="middle">Text Alignment : Middle</option>
+              <option value="top">Text Alignment : Top</option>
+              <option value="bottom">Text Alignment : Bottom</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key11_switchPage"
+              placeholder="Switch Page"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        </div>
+        
+        <!-- Key 12 -->
+        <div class="col">
+        <h4 class="text-center col-md-10">Key 12</h4>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key12_command"
+              placeholder="Command"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key12_icon"
+              placeholder="Icon"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key12_text"
+              placeholder="Text"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <select id="key12_textVerticalAlign" class="form-control placeholder-glow border border-secondary">
+              <option value="middle">Text Alignment : Middle</option>
+              <option value="top">Text Alignment : Top</option>
+              <option value="bottom">Text Alignment : Bottom</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key12_switchPage"
+              placeholder="Switch Page"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        </div>
+        
+        <!-- Key 13 -->
+        <div class="col">
+        <h4 class="text-center col-md-10">Key 13</h4>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key13_command"
+              placeholder="Command"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key13_icon"
+              placeholder="Icon"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key13_text"
+              placeholder="Text"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <select id="key13_textVerticalAlign" class="form-control placeholder-glow border border-secondary">
+              <option value="middle">Text Alignment : Middle</option>
+              <option value="top">Text Alignment : Top</option>
+              <option value="bottom">Text Alignment : Bottom</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key13_switchPage"
+              placeholder="Switch Page"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        </div>
+        
+        <!-- Key 14 -->
+        <div class="col">
+        <h4 class="text-center col-md-10">Key 14</h4>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key14_command"
+              placeholder="Command"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key14_icon"
+              placeholder="Icon"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key14_text"
+              placeholder="Text"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <select id="key14_textVerticalAlign" class="form-control placeholder-glow border border-secondary">
+              <option value="middle">Text Alignment : Middle</option>
+              <option value="top">Text Alignment : Top</option>
+              <option value="bottom">Text Alignment : Bottom</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="col-md-10">
+            <input
+              type="text"
+              id="key14_switchPage"
+              placeholder="Switch Page"
+              class="form-control placeholder-glow border border-secondary"
+            />
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    <pre class="bg-black text-white">
+    <code class="language-json text-white" id="output"></code>
+    </pre>
+
+    <script>
+      let jsonObject = {
+        streamdeck_ui_version: 1,
+        state: {
+          AL26J2C07843: {
+            buttons: {},
+          },
+        },
+      }; // Initialize with the "buttons" object
+
+      function formatJSON(json) {
+        return JSON.stringify(json, null, 4); // Indent with 4 spaces for readability
+      }
+
+      function renderJSONView() {
+        const jsonView = document.getElementById("jsonView");
+        jsonView.innerHTML = ""; // Clear the current view
+
+        const buttons = jsonObject.state.AL26J2C07843.buttons;
+        for (const sectionNumber in buttons) {
+          const section = buttons[sectionNumber];
+          const sectionContent = document.createElement("div");
+          sectionContent.classList.add("section");
+          const formattedSection = formatJSON(section);
+          sectionContent.textContent = `Section ${sectionNumber}:\n${formattedSection}`;
+          jsonView.appendChild(sectionContent);
+        }
+      }
+
+      function addSection() {
+        const sectionNumber = document
+          .getElementById("sectionNumber")
+          .value.trim();
+            if (!sectionNumber) {
+            showErrorToast('Please enter a section number.');
+            return;
+            }
+
+            if (jsonObject.state.AL26J2C07843.buttons[sectionNumber]) {
+            showErrorToast('Section already exists.');
+            return;
+            }
+
+
+        // Create a new section within the "buttons" object
+        jsonObject.state.AL26J2C07843.buttons[sectionNumber] = {};
+
+        // Define field names
+        const fields = [
+          "command",
+          "icon",
+          "text",
+          "textVerticalAlign",
+          "switchPage",
+        ];
+
+        // Populate fields with user-defined values for each key
+        for (let i = 0; i <= 14; i++) {
+          const keyFields = {};
+          for (const field of fields) {
+            const value = document.getElementById(`key${i}_${field}`).value;
+            // Only include the field if it's not blank
+            if (value !== "") {
+              keyFields[field] = value;
+            }
+          }
+          if (Object.keys(keyFields).length > 0) {
+            jsonObject.state.AL26J2C07843.buttons[sectionNumber][i.toString()] =
+              keyFields;
+          }
+        }
+
+        // Clear the section editor fields and section number
+        document.getElementById("sectionNumber").value = "";
+        for (let i = 0; i <= 14; i++) {
+          for (const field of fields) {
+            document.getElementById(`key${i}_${field}`).value = "";
+          }
+        }
+
+        // Update the JSON view and output
+        renderJSONView();
+        document.getElementById("output").textContent = formatJSON(jsonObject);
+
+        // Log to console for debugging
+        showSuccessToast("Page added!", sectionNumber);
+        console.log("Section added:", sectionNumber);
+        console.log("Updated JSON:", jsonObject);
+      }
+
+      // Handle file input change
+      document
+        .getElementById("jsonFileInput")
+        .addEventListener("change", function (event) {
+          const file = event.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              try {
+                // Parse the JSON content of the file
+                jsonObject = JSON.parse(event.target.result);
+                renderJSONView();
+                document.getElementById("output").textContent =
+                  formatJSON(jsonObject);
+                // Log to console for debugging
+                console.log("JSON imported:", jsonObject);
+              } catch (error) {
+                document.getElementById("output").textContent =
+                  "Invalid JSON in the file: " + error.message;
+                // Log to console for debugging
+                console.error("Error importing JSON:", error);
+              }
+            };
+            reader.readAsText(file);
+          }
+        });
+
+        // JavaScript function to generate and trigger the download of JSON data
+function downloadJSON() {
+  // Generate the JSON data (you can use your jsonObject here)
+  const jsonData = JSON.stringify(jsonObject, null, 4);
+
+  // Create a Blob (Binary Large Object) from the JSON data
+  const blob = new Blob([jsonData], { type: 'application/json' });
+
+  // Create a URL for the Blob
+  const url = URL.createObjectURL(blob);
+
+  // Create a temporary link and trigger the download
+  const downloadLink = document.createElement('a');
+  downloadLink.href = url;
+  downloadLink.download = 'generated.json'; // Specify the default filename
+  downloadLink.style.display = 'none';
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+}
+
+// Function to show a success toast notification
+function showSuccessToast(message) {
+  const toastContainer = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = 'toast bg-success text-white';
+  toast.textContent = message;
+  toastContainer.appendChild(toast);
+
+  const bsToast = new bootstrap.Toast(toast, { delay: 3000 }); // Auto hide after 3 seconds
+  bsToast.show();
+}
+
+// Function to show an error toast notification
+function showErrorToast(message) {
+  const toastContainer = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = 'toast bg-danger text-white';
+  toast.textContent = message;
+  toastContainer.appendChild(toast);
+
+  const bsToast = new bootstrap.Toast(toast, { delay: 3000 }); // Auto hide after 3 seconds
+  bsToast.show();
+}
+
+
+      // Initial JSON output and view rendering
+      renderJSONView();
+    </script>
+  </body>
+</html>
